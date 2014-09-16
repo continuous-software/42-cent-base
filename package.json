@@ -1,0 +1,25 @@
+{
+  "name": "42-cent-base",
+  "version": "0.1.0",
+  "description": "structural interface for 42-cent adaptators",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "42-cent",
+    "payment",
+    "gateway"
+  ],
+  "author": "Laurent Renard",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.3.2",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.0",
+    "jsdox": "^0.4.2"
+  }
+}
