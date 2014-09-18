@@ -69,6 +69,43 @@ if the rejection occurs because of the gateway the reason will be an instance of
 
 otherwise it will be an instance of standard javascript Error
 
+getSettledBatchList(from, to) 
+-----------------------------
+get a batch list of settled transaction within the window of time
+
+**Parameters**
+
+**from**: String | Date, Lower limit. If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
+
+**to**: String | Date, Upper limit (or today if not provided). If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
+
+**Returns**: Promise, - The promise should resolve with the following fields
+<dl>
+    <dt>batchList</dt>
+    <dd>An array of batch where a batch will have the following fields
+      <dl>
+          <dt>batchId</dt>
+          <dd>The id the batch is referenced by in the gateway internal system</dd>
+          <dt>settlementDate</dt>
+          <dd>A string for the settlement date time (UTC)</dd>
+          <dt>chargeAmount</dt>
+          <dd>the total amount from the charged transactions during the window of time</dd>
+          <dt>chargeCount</dt>
+          <dd>the total count of charged transactions during the window of time</dd>
+          <dt>refundAmount</dt>
+          <dd>the total amount from the refunded transactions during the window of time</dd>
+          <dt>refundCount</dt>
+          <dd>the total count of refund transactions during the window of time</dd>
+          <dt>voidCount</dt>
+          <dd>the total count of voided transactions during the window of time</dd>
+          <dt>declineCount</dt>
+          <dd>the total count of voided transactions during the window of time</dd>
+          <dt>errorCount</dt>
+          <dd>the total count of voided transactions during the window of time</dd>
+      </dl>
+    </dd>
+</dl>
+
 
 ---
 
