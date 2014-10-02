@@ -36,11 +36,36 @@ all values must be Strings
 **prospect**: Object, the fields related to the prospect
 <dl>
     <dt>customerFirstName</dt>
-    <dd>first name of the customer</dd>
-    <dt>customerLastName</dt>
+    <dd>first name of the customer (also used for the billing)</dd>
+    <dt>customerLastName(also used for the billing)</dt>
     <dd>last name of the customer</dd>
-    <dt>customerEmail</dt>
+    <dt>customerEmail(also used for the billing)</dt>
     <dd>email of the customer</dd>
+    <dt>billingAddress</dt>
+    <dd>the billing address</dd>
+    <dt>billingCity</dt>
+    <dd>the billing city</dd>
+    <dt>billingState</dt>
+    <dd>the billing state</dd>
+    <dt>billingZip</dt>
+    <dd>billing zip code</dd>
+    <dt>billingCountry</dt>
+    <dd>the billing country</dd>
+    <dt>shippingFirstName</dt>
+    <dd>the shipping first name</dd>
+    <dt>shippingLastName</dt>
+    <dd>the shipping last name</dd>
+    <dt>shippingAddress</dt>
+    <dd>the shipping address</dd>
+    <dt>shippingCity</dt>
+    <dd>the shipping city</dd>
+    <dt>shippingState</dt>
+    <dd>the shipping state</dd>
+    <dt>shippingZip</dt>
+    <dd>shipping zip code</dd>
+    <dt>shippingCountry</dt>
+    <dd>the shipping country</dd>
+
 </dl>
 
 **other**: Object, other field specific to a gateway sdk implementation. refer to specific sdk for more details
