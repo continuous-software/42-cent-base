@@ -134,6 +134,40 @@ get a batch list of settled transaction within the window of time
     </dd>
 </dl>
 
+refundTransaction(transactionId, options) 
+-----------------------------
+Refund (or credit) an already settled transaction
+
+**Parameters**
+
+**transactionId**: String, the reference to the transaction to refund (used by the underlying payment gateway system)
+
+**options**: Object, a set of optional fields
+<dl>
+    <dt>amount</dt>
+    <dd>the amount to be refunded (partial refund)</dd>
+</dl>
+
+**Returns**: Promise, - the result promise will have the following fields
+
+if resolved
+<dl>
+     <dt>_original</dt>
+     <dd>the original response from the payment gateway</dd>
+</d>
+
+if rejected
+
+if the rejection occurs because of the gateway the reason will be an instance of {@link GatewayError} holding the following information
+<dl>
+    <dt>message</dt>
+    <dd>The error message from the gateway</dd>
+    <dt>_original</dt>
+    <dd>The original response from the specific sdk implementation</dd>
+</dl>
+
+otherwise it will be an instance of standard javascript Error
+
 
 ---
 
