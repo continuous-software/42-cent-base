@@ -7,7 +7,11 @@ Global
 
 ---
 
-submitTransaction(order, creditCard, prospect, other) 
+BaseGateway
+===
+Structural interface, actual implementations must implement
+
+BaseGateway.submitTransaction(order, creditCard, prospect, other) 
 -----------------------------
 authorize and capture a transaction.
 
@@ -21,7 +25,7 @@ all values must be Strings
     <dd>the amount of the transaction</dd>
 </dl>
 
-**creditCard**: Object, object holding credit card information
+**creditCard**: CreditCard | Object, object holding credit card information
 <dl>
     <dt>creditCardNumber</dt>
     <dd>the credit card number used for the transaction - a string with card number digit, no blank, no dash, etc</dd>
@@ -33,7 +37,7 @@ all values must be Strings
     <dd>the credit card cvv number</dd>
 </dl>
 
-**prospect**: Object, the fields related to the prospect
+**prospect**: Prospect | Object, the fields related to the prospect
 <dl>
     <dt>customerFirstName</dt>
     <dd>first name of the customer (also used for the billing)</dd>
@@ -93,8 +97,7 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-
-getSettledBatchList(from, to) 
+BaseGateway.getSettledBatchList(from, to) 
 -----------------------------
 get a batch list of settled transaction within the window of time
 
@@ -130,8 +133,7 @@ get a batch list of settled transaction within the window of time
       </dl>
     </dd>
 </dl>
-
-refundTransaction(transactionId, options) 
+BaseGateway.refundTransaction(transactionId, options) 
 -----------------------------
 Refund (or credit) an already settled transaction
 
@@ -164,8 +166,7 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-
-voidTransaction(transactionId, options) 
+BaseGateway.voidTransaction(transactionId, options) 
 -----------------------------
 void a (non settled) transaction
 
@@ -194,6 +195,19 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
+BaseGateway.createSubscription(profile, subscriptionPlan, other) 
+-----------------------------
+create a recurring payment
+
+**Parameters**
+
+**profile**: CreditCard, the credit card associated to the payment (todo allow customer profile etc)
+
+**subscriptionPlan**: SubscriptionPlan | Object, a subscription plan
+
+**other**: Object, a set of options to be used by specific implementations
+
+**Returns**: Promise, //todo to be defined
 
 
 ---
