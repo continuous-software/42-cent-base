@@ -207,7 +207,15 @@ create a recurring payment
 
 **other**: Object, a set of options to be used by specific implementations
 
-**Returns**: Promise, //todo to be defined
+**Returns**: Promise, - the result promise will have the following fields
+
+if resolved
+<dl>
+     <dt>subscriptionId</dt>
+     <dd>a reference id to the subscription</dd>
+     <dt>_original</dt>
+     <dd>the original response from the payment gateway</dd>
+</d>
 
 
 ---
