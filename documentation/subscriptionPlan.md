@@ -47,6 +47,15 @@ set the interval time value to be associated with the interval time unit
 **periodLength**: Number, an integer
 
 **Returns**: SubscriptionPlan, returns the instance
+SubscriptionPlan.withAmount(amount) 
+-----------------------------
+set the amount the be billed for each payment
+
+**Parameters**
+
+**amount**: String | Number, the amount
+
+**Returns**: SubscriptionPlan, returns the instance
 
 
 ---
