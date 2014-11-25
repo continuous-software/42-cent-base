@@ -1,6 +1,6 @@
 {
   "name": "42-cent-base",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "structural interface for 42-cent adaptors",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,7 @@
   "author": "Laurent Renard",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "^2.3.2",
-    "lodash": "^2.4.1"
+    "bluebird": "^2.3.2"
   },
   "repository": {
     "type": "git",
