@@ -1,6 +1,6 @@
 {
   "name": "42-cent-base",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "structural interface for 42-cent adaptors",
   "main": "index.js",
   "scripts": {

@@ -100,6 +100,25 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
+BaseGateway.authorizeTransaction(order, creditCard, prospect, other) 
+-----------------------------
+authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**Parameters**
+
+**order**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**creditCard**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**prospect**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**other**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
 BaseGateway.getSettledBatchList(from, to) 
 -----------------------------
 get a batch list of settled transaction within the window of time
@@ -198,15 +217,18 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-BaseGateway.createSubscription(profile, subscriptionPlan, other) 
+BaseGateway.createSubscription(creditCard, prospect, subscriptionPlan, other) 
 -----------------------------
 create a recurring payment
 
 **Parameters**
 
-**profile**: CreditCard, the credit card associated to the payment (todo allow customer profile etc)
+**creditCard**: CreditCard | Object, the credit card associated to the payment
+
+**prospect**: Prospect | Object, the prospect/customer linked to the subscription
 
 **subscriptionPlan**: SubscriptionPlan | Object, a subscription plan
+Note that the tuple [periodUnit , periodLength] must result in a period supported by the gateway implementation otherwise periodUnit should take priority
 
 **other**: Object, a set of options to be used by specific implementations
 
@@ -219,147 +241,29 @@ if resolved
      <dt>_original</dt>
      <dd>the original response from the payment gateway</dd>
 </d>
-
-
----
-
-
-
-
-
-
-
-
-
-Global
-===
-
-
-
-
-
----
-
-CreditCard
-===
-Model representing a credit card
-
-CreditCard.withCreditCardNumber(number) 
+BaseGateway.createCustomerProfile(payment, billing, shipping, other) 
 -----------------------------
-set the credit card number of the instance
+Structural interface, actual implementations must implement
 
 **Parameters**
 
-**number**: String, a string for the card number (no blank, no special character)
+**payment**: CreditCard | Object, payment info to associate with the customer
 
-**Returns**: CreditCard, returns the instance
-CreditCard.withExpirationMonth(month) 
------------------------------
-set the expiration month of the instance
+**billing**: Object, billing info to associate with the customer
 
-**Parameters**
+**shipping**: Object, shipping info to associate with the customer
 
-**month**: string, a two digit string for the expiration month of the credit card
+**other**: Object, optional info related to a specific gateway implementation
 
-**Returns**: CreditCard, returns the instance
-CreditCard.withExpirationYear(year) 
------------------------------
-set the expiration year of the instance
+**Returns**: Promise, - the resolve promise will have the following fields
 
-**Parameters**
-
-**year**: String, a two digit string for the expiration year of the credit card
-
-**Returns**: CreditCard, returns the instance
-CreditCard.withCvv(cvv) 
------------------------------
-set the cvv/cvv2/etc code of the instance
-
-**Parameters**
-
-**cvv**: String, a string for the cvv/cvv2/etc code
-
-**Returns**: CreditCard, returns the instance
-
-
----
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-
-
-
-
-
-Global
-===
-
-
-
-
-
----
-
-SubscriptionPlan
-===
-model for subscription plan
-
-SubscriptionPlan.withStartingDate(date) 
------------------------------
-set the starting date for the recurring payment
-
-**Parameters**
-
-**date**: Date | String, a javascript date or a string resulting to a valid Javascript Date when called with new Date()
-
-**Returns**: SubscriptionPlan, - returns the instance
-SubscriptionPlan.withIterationCount(count) 
------------------------------
-set the number of payments to be done within the plan duration
-
-**Parameters**
-
-**count**: String, the number of payments to be done within the plan duration
-
-**Returns**: SubscriptionPlan, returns the instance
-SubscriptionPlan.withPeriodUnit(unit) 
------------------------------
-set the interval time unit
-
-**Parameters**
-
-**unit**: String, interval unit ['month', 'day', 'week']
-
-**Returns**: SubscriptionPlan, returns the instance
-SubscriptionPlan.withPeriodLength(periodLength) 
------------------------------
-set the interval time value to be associated with the interval time unit
-
-**Parameters**
-
-**periodLength**: Number, an integer
-
-**Returns**: SubscriptionPlan, returns the instance
-SubscriptionPlan.withAmount(amount) 
------------------------------
-set the amount the be billed for each payment
-
-**Parameters**
-
-**amount**: String | Number, the amount
-
-**Returns**: SubscriptionPlan, returns the instance
+if resolved
+<dl>
+     <dt>profileId</dt>
+     <dd>a reference id to the customer profile</dd>
+     <dt>_original</dt>
+     <dd>the original response from the payment gateway</dd>
+</d>
 
 
 ---

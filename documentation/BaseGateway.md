@@ -97,6 +97,25 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
+BaseGateway.authorizeTransaction(order, creditCard, prospect, other) 
+-----------------------------
+authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**Parameters**
+
+**order**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**creditCard**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**prospect**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
+**other**: authorize only a transaction
+same parameters than {@link BaseGateway#submitTransaction}
+
 BaseGateway.getSettledBatchList(from, to) 
 -----------------------------
 get a batch list of settled transaction within the window of time
@@ -195,15 +214,18 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-BaseGateway.createSubscription(profile, subscriptionPlan, other) 
+BaseGateway.createSubscription(creditCard, prospect, subscriptionPlan, other) 
 -----------------------------
 create a recurring payment
 
 **Parameters**
 
-**profile**: CreditCard, the credit card associated to the payment (todo allow customer profile etc)
+**creditCard**: CreditCard | Object, the credit card associated to the payment
+
+**prospect**: Prospect | Object, the prospect/customer linked to the subscription
 
 **subscriptionPlan**: SubscriptionPlan | Object, a subscription plan
+Note that the tuple [periodUnit , periodLength] must result in a period supported by the gateway implementation otherwise periodUnit should take priority
 
 **other**: Object, a set of options to be used by specific implementations
 
@@ -213,6 +235,29 @@ if resolved
 <dl>
      <dt>subscriptionId</dt>
      <dd>a reference id to the subscription</dd>
+     <dt>_original</dt>
+     <dd>the original response from the payment gateway</dd>
+</d>
+BaseGateway.createCustomerProfile(payment, billing, shipping, other) 
+-----------------------------
+Structural interface, actual implementations must implement
+
+**Parameters**
+
+**payment**: CreditCard | Object, payment info to associate with the customer
+
+**billing**: Object, billing info to associate with the customer
+
+**shipping**: Object, shipping info to associate with the customer
+
+**other**: Object, optional info related to a specific gateway implementation
+
+**Returns**: Promise, - the resolve promise will have the following fields
+
+if resolved
+<dl>
+     <dt>profileId</dt>
+     <dd>a reference id to the customer profile</dd>
      <dt>_original</dt>
      <dd>the original response from the payment gateway</dd>
 </d>
