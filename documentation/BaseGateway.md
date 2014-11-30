@@ -240,7 +240,7 @@ if resolved
 </d>
 BaseGateway.createCustomerProfile(payment, billing, shipping, other) 
 -----------------------------
-Structural interface, actual implementations must implement
+create a customer profile in gateway system, useful to charge a customer without having to use his payment info
 
 **Parameters**
 
@@ -261,6 +261,29 @@ if resolved
      <dt>_original</dt>
      <dd>the original response from the payment gateway</dd>
 </d>
+BaseGateway.getCustomerProfile(profileId) 
+-----------------------------
+get a customer profile
+
+**Parameters**
+
+**profileId**: String, the id related to the customer profile in the gateway system
+
+**Returns**: Promise, -
+if resolved the promise will have the same field than a Prospect instance plus a field `payment` holding a CreditCard
+BaseGateway.chargeCustomer(order, prospect, other) 
+-----------------------------
+submit a transaction (auth+capture) from a customer profile.
+
+**Parameters**
+
+**order**: Object, order information
+
+**prospect**: Prospect, the prospect profile to charge, note that the prospect must have the field profileId set
+
+**other**: Object, optional info related to a specific gateway implementation
+
+**Returns**: Promise, cf BaseGateway#submitTransaction
 
 
 ---
