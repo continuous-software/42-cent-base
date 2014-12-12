@@ -58,19 +58,20 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 * `'shippingZip'` *(string)*: 
 * `'shippingCountry'` *(string)*: 
 
-`'other'`  
+`'other'` *(object)*
 
 Other fields specific to a gateway SDK implementation.  
 Refer to specific SDK for more details.
 
 ##### `return value`
 
-`result` *(Promise)*
+`submitTransaction()` returns a `Promise` with the following object as a result:
+
 * `'transactionId'` *(string)*: A unique identifier of the transaction.
 * `'authCode'` *(string)*: Authorization code from the banking institution.
 * `'_original'`: The original response from the gateway.
 
-If the promise gets rejected because of the gateway, the reason will be an `object` instance of {@link GatewayError} holding the following attributes:
+If the promise gets rejected because of the gateway, the reason will be an `object` instance of `[GatewayError](#)` holding the following attributes:
 
 * `'message'` *(string)*: The error message from the gateway.
 * `'_original'`: The original response from the specific sdk implementation.
