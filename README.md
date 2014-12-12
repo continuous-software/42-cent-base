@@ -63,7 +63,7 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 Other fields specific to a gateway SDK implementation.  
 Refer to specific SDK for more details.
 
-##### `return value`
+#### `return value`
 
 `submitTransaction()` returns a `Promise` with the following object as a result:
 
@@ -71,7 +71,7 @@ Refer to specific SDK for more details.
 * `'authCode'` *(string)*: Authorization code from the banking institution.
 * `'_original'`: The original response from the gateway.
 
-If the promise gets rejected because of the gateway, the reason will be an `object` instance of `[GatewayError](#)` holding the following attributes:
+If the promise gets rejected because of the gateway, the reason will be an `object` instance of GatewayError holding the following attributes:
 
 * `'message'` *(string)*: The error message from the gateway.
 * `'_original'`: The original response from the specific sdk implementation.
@@ -163,7 +163,7 @@ if resolved
 
 if rejected
 
-if the rejection occurs because of the gateway the reason will be an instance of {@link GatewayError} holding the following information
+if the rejection occurs because of the gateway the reason will be an instance of GatewayError holding the following information
 <dl>
     <dt>message</dt>
     <dd>The error message from the gateway</dd>
