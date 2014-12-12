@@ -31,7 +31,7 @@ Authorize and capture a transaction.
 
 #### `parameters`
 
-`'order'` *(object)*
+`order` *(object)*
 * `'amount'` *(string)*: The amount of the transaction.
 
 `'creditCard'` *(object)*
@@ -40,7 +40,7 @@ Authorize and capture a transaction.
 * `'expirationYear'` *(string)*: The year of credit card expiration date (2 or 4 digits).
 * `'cvv'` *(string)*: The credit card security code (3 or 4 digits).
 
-`'prospect'` *(object)*
+`prospect` *(object)*
 
 * `'customerFirstName'` *(string)*: First name of the customer (also used for the billing).
 * `'customerLastName'` *(string)*: Last name of the customer (also used for the billing).
@@ -58,14 +58,14 @@ Authorize and capture a transaction.
 * `'shippingZip'` *(string)*: 
 * `'shippingCountry'` *(string)*: 
 
-`'other'` *(object)*
+`other` *(object)*
 
 Other fields specific to a gateway SDK implementation.  
 Refer to specific SDK for more details.
 
 #### `return value`
 
-`submitTransaction()` returns a `Promise` with the following object as a result:
+Returns a `Promise` with the following object as a result:
 
 * `'transactionId'` *(string)*: A unique identifier of the transaction.
 * `'authCode'` *(string)*: Authorization code from the banking institution.
@@ -80,7 +80,7 @@ Otherwise it will be an instance of `Error`.
 
 --------------------------------------------------------
 <a name="basegateway_authorizeTransaction"></a>
-### basegateway#authorizeTransaction(order, creditCard, prospect, other) 
+### basegateway#authorizeTransaction(order, creditCard, prospect[, other]) 
 
 Auhtorize a transaction.
 
@@ -95,38 +95,24 @@ get a batch list of settled transaction within the window of time
 
 #### `parameters`
 
-**from**: String | Date, Lower limit. If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
+`from` *(Date)*: Lower limit.
 
-**to**: String | Date, Upper limit (or today if not provided). If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
+`to` *(Date, default: `Date.now()`)*: Upper limit.
 
 #### `return value`
 
-Promise, - The promise should resolve with the following fields
-<dl>
-    <dt>batchList</dt>
-    <dd>An array of batch where a batch will have the following fields
-      <dl>
-          <dt>batchId</dt>
-          <dd>The id the batch is referenced by in the gateway internal system</dd>
-          <dt>settlementDate</dt>
-          <dd>A string for the settlement date time (UTC)</dd>
-          <dt>chargeAmount</dt>
-          <dd>the total amount from the charged transactions during the window of time</dd>
-          <dt>chargeCount</dt>
-          <dd>the total count of charged transactions during the window of time</dd>
-          <dt>refundAmount</dt>
-          <dd>the total amount from the refunded transactions during the window of time</dd>
-          <dt>refundCount</dt>
-          <dd>the total count of refund transactions during the window of time</dd>
-          <dt>voidCount</dt>
-          <dd>the total count of voided transactions during the window of time</dd>
-          <dt>declineCount</dt>
-          <dd>the total count of voided transactions during the window of time</dd>
-          <dt>errorCount</dt>
-          <dd>the total count of voided transactions during the window of time</dd>
-      </dl>
-    </dd>
-</dl>
+Returns a `Promise` with the following object as a result:
+
+* `'batchList'` *(Array)*: An array of batch where a batch will have the following fields.
+  * `'batchId'`: The id the batch is referenced by in the gateway internal system.
+  * `'settlementDate'` *(string)*: A string for the settlement date time (UTC).
+  * `'chargeAmount'` *(string)*: The total amount from the charged transactions during the window of time.
+  * `'chargeCount'` *(string)*: The total count of charged transactions during the window of time.
+  * `'refundAmount'` *(string)*: The total amount from the refunded transactions during the window of time.
+  * `'refundCount'` *(string)*: The total count of refund transactions during the window of time.
+  * `'voidCount'` *(string)*: The total count of voided transactions during the window of time.
+  * `'declineCount'` *(string)*: The total count of voided transactions during the window of time.
+  * `'errorCount'` *(string)*: The total count of voided transactions during the window of time.
 
 --------------------------------------------------------
 <a name="basegateway_refundTransaction"></a>
@@ -136,75 +122,55 @@ Refund (or credit) a settled transaction.
 
 #### `parameters`
 
-**transactionId**: String, the reference to the transaction to refund (used by the underlying payment gateway system)
+`transactionId` *(string)*: The id referencing the transaction to refund at the gateway.
 
-**options**: Object, a set of optional fields
-<dl>
-    <dt>amount</dt>
-    <dd>the amount to be refunded (partial refund)</dd>
-</dl>
+`options` *(object)*: Set of optional fields.
+
+* `'amount'`: The amount to be refunded (useful for partial refund).
 
 #### `return value` 
 
-Promise, - the result promise will have the following fields
+Returns a `Promise` with the following object as a result:
 
-if resolved
-<dl>
-     <dt>_original</dt>
-     <dd>the original response from the payment gateway</dd>
-</d>
+* `'_original'`: The original response from the gateway.
 
-if rejected
+If the promise gets rejected because of the gateway, the reason will be an `object` instance of GatewayError holding the following attributes:
 
-if the rejection occurs because of the gateway the reason will be an instance of GatewayError holding the following information
-<dl>
-    <dt>message</dt>
-    <dd>The error message from the gateway</dd>
-    <dt>_original</dt>
-    <dd>The original response from the specific sdk implementation</dd>
-</dl>
+* `'message'` *(string)*: The error message from the gateway.
+* `'_original'`: The original response from the specific sdk implementation.
 
-otherwise it will be an instance of standard javascript Error
+Otherwise it will be an instance of `Error`.
 
 --------------------------------------------------------
 <a name="basegateway_voidTransaction"></a>
-### basegateway#voidTransaction(transactionId, options) 
+### basegateway#voidTransaction(transactionId[, options]) 
 
 Void a non-settled transaction.
 
 #### `parameters`
 
-**transactionId**: String, the reference to the transaction to void (used by the underlying payment gateway system)
+`transactionId` *(string)*: The id referencing the transaction to void at the gateway.
 
-**options**: Object, a set of optional fields
+`options` *(object)*: Set of optional fields.
 
 #### `return value`
 
-Promise, - the result promise will have the following fields
+Returns a `Promise` with the following object as a result:
 
-if resolved
-<dl>
-     <dt>_original</dt>
-     <dd>the original response from the payment gateway</dd>
-</d>
+* `'_original'`: The original response from the gateway.
 
-if rejected
+If the promise gets rejected because of the gateway, the reason will be an `object` instance of GatewayError holding the following attributes:
 
-if the rejection occurs because of the gateway the reason will be an instance of {@link GatewayError} holding the following information
-<dl>
-    <dt>message</dt>
-    <dd>The error message from the gateway</dd>
-    <dt>_original</dt>
-    <dd>The original response from the specific sdk implementation</dd>
-</dl>
+* `'message'` *(string)*: The error message from the gateway.
+* `'_original'`: The original response from the specific sdk implementation.
 
-otherwise it will be an instance of standard javascript Error
+Otherwise it will be an instance of `Error`.
 
 --------------------------------------------------------
 <a name="basegateway_createSubscription"></a>
-### basegateway#createSubscription(creditCard, prospect, subscriptionPlan, other) 
+### basegateway#createSubscription(creditCard, prospect, subscriptionPlan[, other]) 
 
-create a recurring payment
+Create a recurring payment.
 
 #### `parameters`
 
@@ -219,15 +185,10 @@ Note that the tuple [periodUnit , periodLength] must result in a period supporte
 
 #### `return value`
 
-Promise, - the result promise will have the following fields
+Returns a `Promise` with the following object as a result:
 
-if resolved
-<dl>
-     <dt>subscriptionId</dt>
-     <dd>a reference id to the subscription</dd>
-     <dt>_original</dt>
-     <dd>the original response from the payment gateway</dd>
-</d>
+* `'subscriptionId'`: An id referencing to the subscription at the gateway.
+* `'_original'`: The original response from the gateway.
 
 --------------------------------------------------------
 <a name="basegateway_createCustomerProfile"></a>
@@ -247,15 +208,10 @@ Create a customer profile in the gateway, useful to charge a customer without ha
 
 #### `return value`
 
-Promise, - the resolve promise will have the following fields
+Returns a `Promise` with the following object as a result:
 
-if resolved
-<dl>
-     <dt>profileId</dt>
-     <dd>a reference id to the customer profile</dd>
-     <dt>_original</dt>
-     <dd>the original response from the payment gateway</dd>
-</d>
+* `'profileId'`: A reference id to the customer profile.
+* `'_original'`: The original response from the payment gateway.
 
 --------------------------------------------------------
 <a name="basegateway_getCustomerProfile"></a>
@@ -265,16 +221,17 @@ Get a previously saved customer profile.
 
 #### `parameters`
 
-**profileId**: String, the id related to the customer profile in the gateway system
+`profileId` *(string)*: The id referencing to the customer profile in the gateway.
 
 #### `return value`
 
-Promise, -
+Returns a `Promise` with the following object as a result:
+
 if resolved the promise will have the same field than a Prospect instance plus a field `payment` holding a CreditCard
 
 --------------------------------------------------------
 <a name="basegateway_chargeCustomer"></a>
-#### basegateway#chargeCustomer(order, prospect, other) 
+#### basegateway#chargeCustomer(order, prospect[, other]) 
 
 Submit a transaction (authorization and capture) using a customer profile.
 
