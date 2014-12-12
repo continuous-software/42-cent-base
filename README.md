@@ -21,11 +21,11 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 
 --------------------------------------------------------
 <a name="ctor"></a>
-### basegateway()
+### basegateway(credentials)
 
 --------------------------------------------------------
 <a name="basegateway_submitTransaction"></a>
-### basegateway#submitTransaction(order, creditCard, prospect, other) 
+### basegateway#submitTransaction(order, creditCard, prospect[, other]) 
 
 `submitTransaction()` authorize and capture a transaction.  
 
