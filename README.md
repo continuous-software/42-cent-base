@@ -1,22 +1,34 @@
 # 42-cent-base
 
-Interface to implement by 42-cent adaptor. See [documentation](https://github.com/continuous-software/42-cent) for more information.
-Global
-===
+> Node.js API abstraction for various payment gateways.
 
-
-
-
+Used by supported gateways listed in [documentation](https://github.com/continuous-software/42-cent).
 
 ---
 
-BaseGateway
-===
-Structural interface, actual implementations must implement
+## API
 
-BaseGateway.submitTransaction(order, creditCard, prospect, other) 
------------------------------
-authorize and capture a transaction.
+* <a href="#ctor"><code><b>BaseGateway()</b></code></a>
+* <a href="#basegateway_submitTransaction"><code><b>BaseGateway#submitTransaction()</b></code></a>
+* <a href="#basegateway_authorizeTransaction"><code><b>BaseGateway#authorizeTransaction()</b></code></a>
+* <a href="#basegateway_getSettledBatchList"><code><b>BaseGateway#getSettledBatchList()</b></code></a>
+* <a href="#basegateway_refundTransaction"><code><b>BaseGateway#refundTransaction()</b></code></a>
+* <a href="#basegateway_voidTransaction"><code><b>BaseGateway#voidTransaction()</b></code></a>
+* <a href="#basegateway_createSubscription"><code><b>BaseGateway#createSubscription()</b></code></a>
+* <a href="#basegateway_createCustomer"><code><b>BaseGateway#createCustomerProfile()</b></code></a>
+* <a href="#basegateway_getCustomerProfile"><code><b>BaseGateway#getCustomerProfile()</b></code></a>
+* <a href="#basegateway_chargeCustomer"><code><b>BaseGateway#chargeCustomer()</b></code></a>
+
+--------------------------------------------------------
+<a name="ctor"></a>
+### BaseGateway()
+
+--------------------------------------------------------
+<a name="basegateway_submitTransaction"></a>
+
+### BaseGateway#submitTransaction(order, creditCard, prospect, other) 
+
+`submitTransaction()` authorize and capture a transaction.
 
 all values must be Strings
 
@@ -291,36 +303,3 @@ submit a transaction (auth+capture) from a customer profile.
 
 ---
 
-
-
-
-
-
-
-
-
-## license
-
-42-cent-base module is under MIT license:
-
-> Copyright (C) 2014 Laurent Renard.
->
-> Permission is hereby granted, free of charge, to any person
-> obtaining a copy of this software and associated documentation files
-> (the "Software"), to deal in the Software without restriction,
-> including without limitation the rights to use, copy, modify, merge,
-> publish, distribute, sublicense, and/or sell copies of the Software,
-> and to permit persons to whom the Software is furnished to do so,
-> subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be
-> included in all copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-> NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
-> BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-> ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-> CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
