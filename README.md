@@ -27,7 +27,7 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 <a name="basegateway_submitTransaction"></a>
 ### basegateway#submitTransaction(order, creditCard, prospect[, other]) 
 
-`submitTransaction()` authorize and capture a transaction.  
+Authorize and capture a transaction.  
 
 #### `parameters`
 
@@ -82,35 +82,26 @@ Otherwise it will be an instance of `Error`.
 <a name="basegateway_authorizeTransaction"></a>
 ### basegateway#authorizeTransaction(order, creditCard, prospect, other) 
 
-authorize only a transaction
-same parameters than {@link BaseGateway#submitTransaction}
+Auhtorize a transaction.
 
-**Parameters**
+#### `parameters`
 
-**order**: authorize only a transaction
-same parameters than {@link BaseGateway#submitTransaction}
-
-**creditCard**: authorize only a transaction
-same parameters than {@link BaseGateway#submitTransaction}
-
-**prospect**: authorize only a transaction
-same parameters than {@link BaseGateway#submitTransaction}
-
-**other**: authorize only a transaction
-same parameters than {@link BaseGateway#submitTransaction}
+See <a href="#basegateway_submitTransaction"><code><b>basegateway#submitTransaction()</b></code></a>.
 
 --------------------------------------------------------
 <a name="basegateway_getSettledBatchList"></a>
 ### basegateway#getSettledBatchList(from, to) 
 get a batch list of settled transaction within the window of time
 
-**Parameters**
+#### `parameters`
 
 **from**: String | Date, Lower limit. If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
 
 **to**: String | Date, Upper limit (or today if not provided). If String, it must be a valid date string: a string which will result in a valid Javascript Date object if passed as argument of the Date constructor
 
-**Returns**: Promise, - The promise should resolve with the following fields
+#### `return value`
+
+Promise, - The promise should resolve with the following fields
 <dl>
     <dt>batchList</dt>
     <dd>An array of batch where a batch will have the following fields
@@ -141,9 +132,9 @@ get a batch list of settled transaction within the window of time
 <a name="basegateway_refundTransaction"></a>
 ### basegateway#refundTransaction(transactionId, options) 
 
-Refund (or credit) an already settled transaction
+Refund (or credit) a settled transaction.
 
-**Parameters**
+#### `parameters`
 
 **transactionId**: String, the reference to the transaction to refund (used by the underlying payment gateway system)
 
@@ -153,7 +144,9 @@ Refund (or credit) an already settled transaction
     <dd>the amount to be refunded (partial refund)</dd>
 </dl>
 
-**Returns**: Promise, - the result promise will have the following fields
+#### `return value` 
+
+Promise, - the result promise will have the following fields
 
 if resolved
 <dl>
@@ -177,15 +170,17 @@ otherwise it will be an instance of standard javascript Error
 <a name="basegateway_voidTransaction"></a>
 ### basegateway#voidTransaction(transactionId, options) 
 
-void a (non settled) transaction
+Void a non-settled transaction.
 
-**Parameters**
+#### `parameters`
 
 **transactionId**: String, the reference to the transaction to void (used by the underlying payment gateway system)
 
 **options**: Object, a set of optional fields
 
-**Returns**: Promise, - the result promise will have the following fields
+#### `return value`
+
+Promise, - the result promise will have the following fields
 
 if resolved
 <dl>
@@ -211,7 +206,7 @@ otherwise it will be an instance of standard javascript Error
 
 create a recurring payment
 
-**Parameters**
+#### `parameters`
 
 **creditCard**: CreditCard | Object, the credit card associated to the payment
 
@@ -222,7 +217,9 @@ Note that the tuple [periodUnit , periodLength] must result in a period supporte
 
 **other**: Object, a set of options to be used by specific implementations
 
-**Returns**: Promise, - the result promise will have the following fields
+#### `return value`
+
+Promise, - the result promise will have the following fields
 
 if resolved
 <dl>
@@ -236,9 +233,9 @@ if resolved
 <a name="basegateway_createCustomerProfile"></a>
 ### basegateway#createCustomerProfile(payment, billing, shipping, other) 
 
-create a customer profile in gateway system, useful to charge a customer without having to use his payment info
+Create a customer profile in the gateway, useful to charge a customer without having to provide his payment method information again.
 
-**Parameters**
+#### `parameters`
 
 **payment**: CreditCard | Object, payment info to associate with the customer
 
@@ -248,7 +245,9 @@ create a customer profile in gateway system, useful to charge a customer without
 
 **other**: Object, optional info related to a specific gateway implementation
 
-**Returns**: Promise, - the resolve promise will have the following fields
+#### `return value`
+
+Promise, - the resolve promise will have the following fields
 
 if resolved
 <dl>
@@ -262,22 +261,24 @@ if resolved
 <a name="basegateway_getCustomerProfile"></a>
 ### basegateway#getCustomerProfile(profileId) 
 
-get a customer profile
+Get a previously saved customer profile.
 
-**Parameters**
+#### `parameters`
 
 **profileId**: String, the id related to the customer profile in the gateway system
 
-**Returns**: Promise, -
+#### `return value`
+
+Promise, -
 if resolved the promise will have the same field than a Prospect instance plus a field `payment` holding a CreditCard
 
 --------------------------------------------------------
 <a name="basegateway_chargeCustomer"></a>
 #### basegateway#chargeCustomer(order, prospect, other) 
 
-submit a transaction (auth+capture) from a customer profile.
+Submit a transaction (authorization and capture) using a customer profile.
 
-**Parameters**
+#### `parameters`
 
 **order**: Object, order information
 
@@ -285,5 +286,7 @@ submit a transaction (auth+capture) from a customer profile.
 
 **other**: Object, optional info related to a specific gateway implementation
 
-**Returns**: Promise, cf BaseGateway#submitTransaction
+#### `return value`
+
+See <a href="#basegateway_submitTransaction"><code><b>basegateway#submitTransaction()</b></code></a>.
 
