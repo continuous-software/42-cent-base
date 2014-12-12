@@ -1,119 +1,86 @@
 # 42-cent-base
 
-> Node.js API abstraction for various payment gateways.
+> Node.js API abstraction for payment gateways.
 
-Used by supported gateways listed in [documentation](https://github.com/continuous-software/42-cent).
+Used by supported gateways listed in [42-cent](https://github.com/continuous-software/42-cent).
 
 ---
 
-## API
+## BaseGateway API
 
-* <a href="#ctor"><code><b>BaseGateway()</b></code></a>
-* <a href="#basegateway_submitTransaction"><code><b>BaseGateway#submitTransaction()</b></code></a>
-* <a href="#basegateway_authorizeTransaction"><code><b>BaseGateway#authorizeTransaction()</b></code></a>
-* <a href="#basegateway_getSettledBatchList"><code><b>BaseGateway#getSettledBatchList()</b></code></a>
-* <a href="#basegateway_refundTransaction"><code><b>BaseGateway#refundTransaction()</b></code></a>
-* <a href="#basegateway_voidTransaction"><code><b>BaseGateway#voidTransaction()</b></code></a>
-* <a href="#basegateway_createSubscription"><code><b>BaseGateway#createSubscription()</b></code></a>
-* <a href="#basegateway_createCustomer"><code><b>BaseGateway#createCustomerProfile()</b></code></a>
-* <a href="#basegateway_getCustomerProfile"><code><b>BaseGateway#getCustomerProfile()</b></code></a>
-* <a href="#basegateway_chargeCustomer"><code><b>BaseGateway#chargeCustomer()</b></code></a>
+* <a href="#ctor"><code><b>basegateway()</b></code></a>
+* <a href="#basegateway_submitTransaction"><code><b>basegateway#submitTransaction()</b></code></a>
+* <a href="#basegateway_authorizeTransaction"><code><b>basegateway#authorizeTransaction()</b></code></a>
+* <a href="#basegateway_getSettledBatchList"><code><b>basegateway#getSettledBatchList()</b></code></a>
+* <a href="#basegateway_refundTransaction"><code><b>basegateway#refundTransaction()</b></code></a>
+* <a href="#basegateway_voidTransaction"><code><b>basegateway#voidTransaction()</b></code></a>
+* <a href="#basegateway_createSubscription"><code><b>basegateway#createSubscription()</b></code></a>
+* <a href="#basegateway_createCustomer"><code><b>basegateway#createCustomerProfile()</b></code></a>
+* <a href="#basegateway_getCustomerProfile"><code><b>basegateway#getCustomerProfile()</b></code></a>
+* <a href="#basegateway_chargeCustomer"><code><b>basegateway#chargeCustomer()</b></code></a>
 
 --------------------------------------------------------
 <a name="ctor"></a>
-### BaseGateway()
+### basegateway()
 
 --------------------------------------------------------
 <a name="basegateway_submitTransaction"></a>
+### basegateway#submitTransaction(order, creditCard, prospect, other) 
 
-### BaseGateway#submitTransaction(order, creditCard, prospect, other) 
+`submitTransaction()` authorize and capture a transaction.  
 
-`submitTransaction()` authorize and capture a transaction.
+#### `parameters`
 
-all values must be Strings
+`'order'` *(object)*
+* `'amount'` *(string)*: The amount of the transaction.
 
-**Parameters**
+`'creditCard'` *(object)*
+* `'creditCardNumber'` *(string)*: The credit card (PAN) number.
+* `'expirationMonth'` *(string)*: The month of credit card expiration date.
+* `'expirationYear'` *(string)*: The year of credit card expiration date (2 or 4 digits).
+* `'cvv'` *(string)*: The credit card security code (3 or 4 digits).
 
-**order**: Object, the fields related to the order
-<dl>
-    <dt>amount</dt>
-    <dd>the amount of the transaction</dd>
-</dl>
+`'prospect'` *(object)*
 
-**creditCard**: CreditCard | Object, object holding credit card information
-<dl>
-    <dt>creditCardNumber</dt>
-    <dd>the credit card number used for the transaction - a string with card number digit, no blank, no dash, etc</dd>
-    <dt>expirationMonth - two digit string : 01 -> 12</dt>
-    <dd>The month of credit card expiration date</dd>
-    <dt>expirationYear</dt>
-    <dd>The year of credit card expiration date - four or two digits string 2016 or 16</dd>
-    <dt>cvv</dt>
-    <dd>the credit card cvv number</dd>
-</dl>
+* `'customerFirstName'` *(string)*: First name of the customer (also used for the billing).
+* `'customerLastName'` *(string)*: Last name of the customer (also used for the billing).
+* `'customerEmail'` *(string)*: Email of the customer.
+* `'billingAddress'` *(string)*: Billing address.
+* `'billingCity'` *(string)*: Billing City
+* `'billingState'` *(string)*: Billing State
+* `'billingZip'` *(string)*: Billing Zip
+* `'billingCountry'` *(string)*: Billing Country
+* `'shippingFirstName'` *(string)*: 
+* `'shippingLastName'` *(string)*: 
+* `'shippingAddress'` *(string)*: 
+* `'shippingCity'` *(string)*: 
+* `'shippingState'` *(string)*: 
+* `'shippingZip'` *(string)*: 
+* `'shippingCountry'` *(string)*: 
 
-**prospect**: Prospect | Object, the fields related to the prospect
-<dl>
-    <dt>customerFirstName</dt>
-    <dd>first name of the customer (also used for the billing)</dd>
-    <dt>customerLastName(also used for the billing)</dt>
-    <dd>last name of the customer</dd>
-    <dt>customerEmail(also used for the billing)</dt>
-    <dd>email of the customer</dd>
-    <dt>billingAddress</dt>
-    <dd>the billing address</dd>
-    <dt>billingCity</dt>
-    <dd>the billing city</dd>
-    <dt>billingState</dt>
-    <dd>the billing state</dd>
-    <dt>billingZip</dt>
-    <dd>billing zip code</dd>
-    <dt>billingCountry</dt>
-    <dd>the billing country</dd>
-    <dt>shippingFirstName</dt>
-    <dd>the shipping first name</dd>
-    <dt>shippingLastName</dt>
-    <dd>the shipping last name</dd>
-    <dt>shippingAddress</dt>
-    <dd>the shipping address</dd>
-    <dt>shippingCity</dt>
-    <dd>the shipping city</dd>
-    <dt>shippingState</dt>
-    <dd>the shipping state</dd>
-    <dt>shippingZip</dt>
-    <dd>shipping zip code</dd>
-    <dt>shippingCountry</dt>
-    <dd>the shipping country</dd>
+`'other'`  
 
-</dl>
+Other fields specific to a gateway SDK implementation.  
+Refer to specific SDK for more details.
 
-**other**: Object, other field specific to a gateway sdk implementation. refer to specific sdk for more details
+##### `return value`
 
-**Returns**: Promise, - the promise will have these different fields
+`result` *(Promise)*
+* `'transactionId'` *(string)*: A unique identifier of the transaction.
+* `'authCode'` *(string)*: Authorization code from the banking institution.
+* `'_original'`: The original response from the gateway.
 
-if resolved
-<dl>
-     <dt>transactionId</dt>
-     <dd>A unique identifier of the transaction.</dd>
-     <dt>authCode</dt>
-     <dd>authorization code from the banking institution</dd>
-     <dt>_original<dt>
-     <dd>the original response from the specific sdk implementation<dd>
-</dl>
+If the promise gets rejected because of the gateway, the reason will be an `object` instance of {@link GatewayError} holding the following attributes:
 
-if rejected
+* `'message'` *(string)*: The error message from the gateway.
+* `'_original'`: The original response from the specific sdk implementation.
 
-if the rejection occurs because of the gateway the reason will be an instance of {@link GatewayError} holding the following information
-<dl>
-    <dt>message</dt>
-    <dd>The error message from the gateway</dd>
-    <dt>_original</dt>
-    <dd>The original response from the specific sdk implementation</dd>
-</dl>
+Otherwise it will be an instance of `Error`.
 
-otherwise it will be an instance of standard javascript Error
-BaseGateway.authorizeTransaction(order, creditCard, prospect, other) 
------------------------------
+--------------------------------------------------------
+<a name="basegateway_authorizeTransaction"></a>
+### basegateway#authorizeTransaction(order, creditCard, prospect, other) 
+
 authorize only a transaction
 same parameters than {@link BaseGateway#submitTransaction}
 
@@ -131,8 +98,9 @@ same parameters than {@link BaseGateway#submitTransaction}
 **other**: authorize only a transaction
 same parameters than {@link BaseGateway#submitTransaction}
 
-BaseGateway.getSettledBatchList(from, to) 
------------------------------
+--------------------------------------------------------
+<a name="basegateway_getSettledBatchList"></a>
+### basegateway#getSettledBatchList(from, to) 
 get a batch list of settled transaction within the window of time
 
 **Parameters**
@@ -167,8 +135,11 @@ get a batch list of settled transaction within the window of time
       </dl>
     </dd>
 </dl>
-BaseGateway.refundTransaction(transactionId, options) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_refundTransaction"></a>
+### basegateway#refundTransaction(transactionId, options) 
+
 Refund (or credit) an already settled transaction
 
 **Parameters**
@@ -200,8 +171,11 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-BaseGateway.voidTransaction(transactionId, options) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_voidTransaction"></a>
+### basegateway#voidTransaction(transactionId, options) 
+
 void a (non settled) transaction
 
 **Parameters**
@@ -229,8 +203,11 @@ if the rejection occurs because of the gateway the reason will be an instance of
 </dl>
 
 otherwise it will be an instance of standard javascript Error
-BaseGateway.createSubscription(creditCard, prospect, subscriptionPlan, other) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_createSubscription"></a>
+### basegateway#createSubscription(creditCard, prospect, subscriptionPlan, other) 
+
 create a recurring payment
 
 **Parameters**
@@ -253,8 +230,11 @@ if resolved
      <dt>_original</dt>
      <dd>the original response from the payment gateway</dd>
 </d>
-BaseGateway.createCustomerProfile(payment, billing, shipping, other) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_createCustomerProfile"></a>
+### basegateway#createCustomerProfile(payment, billing, shipping, other) 
+
 create a customer profile in gateway system, useful to charge a customer without having to use his payment info
 
 **Parameters**
@@ -276,8 +256,11 @@ if resolved
      <dt>_original</dt>
      <dd>the original response from the payment gateway</dd>
 </d>
-BaseGateway.getCustomerProfile(profileId) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_getCustomerProfile"></a>
+### basegateway#getCustomerProfile(profileId) 
+
 get a customer profile
 
 **Parameters**
@@ -286,8 +269,11 @@ get a customer profile
 
 **Returns**: Promise, -
 if resolved the promise will have the same field than a Prospect instance plus a field `payment` holding a CreditCard
-BaseGateway.chargeCustomer(order, prospect, other) 
------------------------------
+
+--------------------------------------------------------
+<a name="basegateway_chargeCustomer"></a>
+#### basegateway#chargeCustomer(order, prospect, other) 
+
 submit a transaction (auth+capture) from a customer profile.
 
 **Parameters**
@@ -299,7 +285,4 @@ submit a transaction (auth+capture) from a customer profile.
 **other**: Object, optional info related to a specific gateway implementation
 
 **Returns**: Promise, cf BaseGateway#submitTransaction
-
-
----
 
