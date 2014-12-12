@@ -231,7 +231,7 @@ if resolved the promise will have the same field than a Prospect instance plus a
 
 --------------------------------------------------------
 <a name="basegateway_chargeCustomer"></a>
-#### basegateway#chargeCustomer(order, prospect[, other]) 
+### basegateway#chargeCustomer(order, prospect[, other]) 
 
 Submit a transaction (authorization and capture) using a customer profile.
 
