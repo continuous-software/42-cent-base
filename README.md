@@ -6,6 +6,16 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 
 ---
 
+## [Semantic Versioning](http://semver.org/)
+  
+It is important to note that the BaseGateway API will follow the semantic versioning rules so that:
+
+* Any change on already defined property will define a new API and therefore will result on a different first digit of the BaseGateway version
+* New supported parameters/methods will define a new functionality and therefore will result in a different second digit of the BaseGateway version
+* Bug fixes/patches should not impact gateways implementation and will result in a different third digit of the BaseGateway version
+
+---
+
 ## BaseGateway API
 
 * <a href="#ctor"><code><b>basegateway()</b></code></a>
@@ -21,11 +31,11 @@ Used by supported gateways listed in [42-cent](https://github.com/continuous-sof
 
 --------------------------------------------------------
 <a name="ctor"></a>
-### basegateway(credentials)
+#### basegateway(credentials)
 
 --------------------------------------------------------
 <a name="basegateway_submitTransaction"></a>
-### basegateway#submitTransaction(order, creditCard, prospect[, other]) 
+#### basegateway#submitTransaction(order, creditCard, prospect[, other]) 
 
 Authorize and capture a transaction.  
 
@@ -90,7 +100,7 @@ See <a href="#basegateway_submitTransaction"><code><b>basegateway#submitTransact
 
 --------------------------------------------------------
 <a name="basegateway_getSettledBatchList"></a>
-### basegateway#getSettledBatchList(from, to) 
+#### basegateway#getSettledBatchList(from, to) 
 get a batch list of settled transaction within the window of time
 
 #### `parameters`
@@ -116,7 +126,7 @@ Returns a `Promise` with the following object as a result:
 
 --------------------------------------------------------
 <a name="basegateway_refundTransaction"></a>
-### basegateway#refundTransaction(transactionId, options) 
+#### basegateway#refundTransaction(transactionId, options) 
 
 Refund (or credit) a settled transaction.
 
@@ -168,7 +178,7 @@ Otherwise it will be an instance of `Error`.
 
 --------------------------------------------------------
 <a name="basegateway_createSubscription"></a>
-### basegateway#createSubscription(creditCard, prospect, subscriptionPlan[, other]) 
+#### basegateway#createSubscription(creditCard, prospect, subscriptionPlan[, other]) 
 
 Create a recurring payment.
 
@@ -192,7 +202,7 @@ Returns a `Promise` with the following object as a result:
 
 --------------------------------------------------------
 <a name="basegateway_createCustomerProfile"></a>
-### basegateway#createCustomerProfile(payment, billing, shipping, other) 
+#### basegateway#createCustomerProfile(payment, billing, shipping, other) 
 
 Create a customer profile in the gateway, useful to charge a customer without having to provide his payment method information again.
 
@@ -215,7 +225,7 @@ Returns a `Promise` with the following object as a result:
 
 --------------------------------------------------------
 <a name="basegateway_getCustomerProfile"></a>
-### basegateway#getCustomerProfile(profileId) 
+#### basegateway#getCustomerProfile(profileId) 
 
 Get a previously saved customer profile.
 
@@ -231,7 +241,7 @@ if resolved the promise will have the same field than a Prospect instance plus a
 
 --------------------------------------------------------
 <a name="basegateway_chargeCustomer"></a>
-### basegateway#chargeCustomer(order, prospect[, other]) 
+#### basegateway#chargeCustomer(order, prospect[, other]) 
 
 Submit a transaction (authorization and capture) using a customer profile.
 
