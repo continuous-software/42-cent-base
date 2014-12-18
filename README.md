@@ -4,8 +4,6 @@
 
 Used by supported gateways listed in [42-cent](https://github.com/continuous-software/42-cent).
 
----
-
 ## [Semantic Versioning](http://semver.org/)
   
 It is important to note that the BaseGateway API will follow the semantic versioning rules so that:
@@ -13,8 +11,6 @@ It is important to note that the BaseGateway API will follow the semantic versio
 * Any change on already defined property will define a new API and therefore will result on a different first digit of the BaseGateway version
 * New supported parameters/methods will define a new functionality and therefore will result in a different second digit of the BaseGateway version
 * Bug fixes/patches should not impact gateways implementation and will result in a different third digit of the BaseGateway version
-
----
 
 ## BaseGateway API
 
@@ -31,7 +27,7 @@ It is important to note that the BaseGateway API will follow the semantic versio
 
 --------------------------------------------------------
 <a name="ctor"></a>
-#### basegateway(credentials)
+#### basegateway(options)
 
 --------------------------------------------------------
 <a name="basegateway_submitTransaction"></a>
@@ -90,7 +86,7 @@ Otherwise it will be an instance of `Error`.
 
 --------------------------------------------------------
 <a name="basegateway_authorizeTransaction"></a>
-### basegateway#authorizeTransaction(order, creditCard, prospect[, other]) 
+#### basegateway#authorizeTransaction(order, creditCard, prospect[, other]) 
 
 Auhtorize a transaction.
 
