@@ -1,5 +1,7 @@
 # 42-cent-base
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/continuous-software/42-cent-base.svg)](https://greenkeeper.io/)
+
 > Node.js API abstraction for payment gateways.
 
 Used by supported gateways listed in [42-cent](https://github.com/continuous-software/42-cent).
