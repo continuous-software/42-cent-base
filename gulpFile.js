@@ -7,11 +7,12 @@ gulp.task('documentation', function (done) {
     jsdox.generateForDir('./lib/', 'documentation', './node_modules/jsdox/templates', done);
 });
 
-gulp.task('readme', ['documentation'], function () {
+gulp.task('readme', gulp.series('documentation', function (done) {
 
-    gulp.src(['./documentation/head.md', './documentation/BaseGateway.md','./documentation/creditCard.md','./documentation/prospect.md','./documentation/subscriptionPlan.md', './documentation/foot.md'])
+    gulp.src('./documentation/*.md')
         .pipe(concat('readme.md'))
         .pipe(gulp.dest('./'));
-});
+	done();
+}));
 
-gulp.task('default', ['readme']);
+gulp.task('default', gulp.series('readme'));
